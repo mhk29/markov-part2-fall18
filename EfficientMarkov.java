@@ -20,35 +20,41 @@ public class EfficientMarkov extends BaseMarkov {
 	@Override
 	public void setTraining(String text) {
 		myText = text;
-		myMap = new HashMap<String, ArrayList<String>>();
 		
-		for (int a = 0; a < text.length() - getOrder() - 1; a++) {
+		for (int a = 0; a < text.length() - getOrder() + 1; a++) {
 			
 			String trainer = myText.substring(a, a + getOrder());
 			ArrayList<String> theOne = new ArrayList<String>();
 			String theAdd;
-//			
-//			if (! myMap.containsKey(trainer)) {	
-//				myMap.put(trainer, new ArrayList<String>());
-//			}		
-			if (a == myText.length() - getOrder()) {
-				
+			
+			if (a == text.length() - getOrder()) {
+				theAdd = PSEUDO_EOS;
+			}	
+			
+			else {
+				theAdd = myText.substring(a + getOrder(), a + getOrder() + 1);
+			}
+			
+			if (! myMap.containsKey(trainer)) {	
+				myMap.put(trainer, new ArrayList<String>());
 			}
 			theOne = myMap.get(trainer);
-			theAdd = myText.substring(a + getOrder(), a + getOrder() + 1);
 			theOne.add(theAdd);
 			myMap.put(trainer, theOne);
+			}
 		}
-		String addLast = myText.substring(myText.length() - getOrder() - 1, myText.length() - 1);
-		if (! myMap.containsKey(addLast)) {	
-			ArrayList<String> meIn = new ArrayList<String>();
-			meIn.add(PSEUDO_EOS);
-			myMap.put(addLast, meIn);
-		}		
-		if (myMap.containsKey(addLast)) {
-			myMap.get(addLast).add(PSEUDO_EOS);
-		}
-	}
+//		String addLast = myText.substring(myText.length() - getOrder() - 1, myText.length() - 1);
+//		if (! myMap.containsKey(addLast)) {	
+//			myMap.put(addLast, new ArrayList<String>());
+//			ArrayList<String> meIn = new ArrayList<String>();
+//			meIn.add(PSEUDO_EOS);
+//			myMap.put(addLast, meIn);
+//		}		
+//		if (myMap.containsKey(addLast)) {	
+//			myMap.get(addLast).add(PSEUDO_EOS);
+//		}	
+		
+	
 
 	
 	@Override
