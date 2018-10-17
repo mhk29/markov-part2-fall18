@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 public class EfficientWordMarkov extends BaseWordMarkov {
 	
@@ -11,27 +12,28 @@ public class EfficientWordMarkov extends BaseWordMarkov {
 	}
 	
 	public EfficientWordMarkov() {
-		this(3);
+		this(2);
+		myRandom = new Random(RANDOM_SEED);
 	}
 
 	@Override
 	public void setTraining(String text) {
-		String[] myText = text.split("\\s");
+		String[] myWords = text.split("\\s");
 		myMap = new HashMap<WordGram, ArrayList<String>>();
 		
-		for (int a = 0; a < myText.length - getOrder() - 1; a++) {
+		for (int a = 0; a < myWords.length - getOrder() + 1; a++) {
 			
-			WordGram trainer = new WordGram(myText, a, getOrder());
+			WordGram trainer = new WordGram(myWords, a, getOrder());
 			ArrayList<String> theOne = new ArrayList<String>();
 			String theAdd;
 			
 		
 			
-			if (a == myText.length - getOrder()) {
+			if (a == myWords.length - getOrder()) {
 				theAdd = PSEUDO_EOS;
 			}
 			else {
-				theAdd = myText[a + getOrder()];
+				theAdd = myWords[a + getOrder()];
 			}
 			
 			if (! myMap.containsKey(trainer)) {	
