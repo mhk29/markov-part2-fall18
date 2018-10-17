@@ -19,22 +19,26 @@ public class EfficientWordMarkov extends BaseWordMarkov {
 		String[] myText = text.split("\\s");
 		myMap = new HashMap<WordGram, ArrayList<String>>();
 		
-		for (int a = 0; a < text.length() - getOrder() - 1; a++) {
+		for (int a = 0; a < text.length() - getOrder() + 1; a++) {
 			
 			WordGram trainer = new WordGram(myText, a, getOrder());
 			ArrayList<String> theOne = new ArrayList<String>();
 			String theAdd;
 			
-			if (! myMap.containsKey(trainer)) {	
-				myMap.put(trainer, new ArrayList<String>());
-			}		
+		
 			
 			if (a == myText.length - getOrder()) {
 				theAdd = PSEUDO_EOS;
 			}
+			else {
+				theAdd = myText[a + getOrder()];
+			}
+			
+			if (! myMap.containsKey(trainer)) {	
+				myMap.put(trainer, new ArrayList<String>());
+			}
 			
 			theOne = myMap.get(trainer);
-			theAdd = myText[a + getOrder()];
 			theOne.add(theAdd);
 			myMap.put(trainer, theOne);
 		}
