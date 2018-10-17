@@ -36,13 +36,12 @@ public class EfficientMarkov extends BaseMarkov {
 			theOne.add(theAdd);
 			myMap.put(trainer, theOne);
 		}
-		String addLast = myText.substring(myText.length() - getOrder() - 1, myText.length() - 1);
+		String addLast = myText.substring(myText.length() - getOrder(), myText.length() - 1);
 		if (! myMap.containsKey(addLast)) {	
-			myMap.put(addLast, new ArrayList<String>());
+			ArrayList<String> meIn = new ArrayList<String>();
+			meIn.add(PSEUDO_EOS);
+			myMap.put(addLast, meIn);
 		}		
-		ArrayList<String> meIn = myMap.get(addLast);
-		meIn.add(PSEUDO_EOS);
-		myMap.put(addLast, meIn);
 	}
 
 	
