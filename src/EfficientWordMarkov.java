@@ -33,7 +33,7 @@ public class EfficientWordMarkov extends BaseWordMarkov {
 				theAdd = PSEUDO_EOS;
 			}
 			else {
-				theAdd = myWords[a + getOrder()];
+				theAdd = myWords[a + getOrder() - 1];
 			}
 			
 			if (! myMap.containsKey(trainer)) {	
