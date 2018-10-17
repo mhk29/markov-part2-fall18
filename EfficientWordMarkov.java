@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 public class EfficientWordMarkov extends BaseWordMarkov {
 	
@@ -27,20 +28,32 @@ public class EfficientWordMarkov extends BaseWordMarkov {
 			if (! myMap.containsKey(trainer)) {	
 				myMap.put(trainer, new ArrayList<String>());
 			}		
+			
+			if (a == myText.length - getOrder()) {
+				theAdd = PSEUDO_EOS;
+			}
+			
 			theOne = myMap.get(trainer);
 			theAdd = myText[a + getOrder()];
 			theOne.add(theAdd);
 			myMap.put(trainer, theOne);
 		}
-		WordGram addLast = new WordGram(myText, text.length() - getOrder(), getOrder());
-		if (! myMap.containsKey(addLast)) {	
-			myMap.put(addLast, new ArrayList<String>());
-		}		
-		ArrayList<String> meIn = myMap.get(addLast);
-		meIn.add(PSEUDO_EOS);
-		myMap.put(addLast, meIn);
+//		WordGram addsLast = new WordGram(myText, text.length() - getOrder(), getOrder());
+//		if (! myMap.containsKey(addLast)) {	
+//			myMap.put(addLast, new ArrayList<String>());
+//		}		
+//		ArrayList<String> meIn = myMap.get(addLast);
+//		meIn.add(PSEUDO_EOS);
+//		myMap.put(addLast, meIn);
 
 		
 	}
 	
+	@Override
+	public ArrayList<String> getFollows(WordGram key) {
+		if (! myMap.containsKey(key)) {
+			throw new NoSuchElementException (key+" not in map");
+		}
+		return myMap.get(key);
+	}
 }
