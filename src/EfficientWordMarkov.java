@@ -19,7 +19,7 @@ public class EfficientWordMarkov extends BaseWordMarkov {
 		String[] myText = text.split("\\s");
 		myMap = new HashMap<WordGram, ArrayList<String>>();
 		
-		for (int a = 0; a < myText.length - getOrder() + 1; a++) {
+		for (int a = 0; a < myText.length - getOrder() - 1; a++) {
 			
 			WordGram trainer = new WordGram(myText, a, getOrder());
 			ArrayList<String> theOne = new ArrayList<String>();
