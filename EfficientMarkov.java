@@ -22,7 +22,7 @@ public class EfficientMarkov extends BaseMarkov {
 		myText = text;
 		myMap = new HashMap<String, ArrayList<String>>();
 		
-		for (int a = 0; a < text.length() - getOrder() - 1; a++) {
+		for (int a = 1; a < text.length() - getOrder() - 1; a++) {
 			
 			String trainer = myText.substring(a, a + getOrder());
 			ArrayList<String> theOne = new ArrayList<String>();
