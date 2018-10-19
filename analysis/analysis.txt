@@ -1,27 +1,194 @@
 This is the analysis for Markov Part 2, Fall 2018
 
-Include your name and net id here. Answer the questions from the assignment 
+Include your name and net id here. 
+Answer the questions from the assignment 
 that are reproduced below
 
+
+
 (1) Determine (from running Benchmark.java) how long it takes for 
-BaseMarkov to generate 2,000, 4,000, 8,000, 16,000, and 32,000 
-random characters using the default file and an order 5 Markov Model. 
+BaseMarkov to generate 
+2,000, 4,000, 8,000, 16,000, and 32,000 
+random characters using the default file and an 
+order 5 Markov Model. 
 Include these timings in your report. 
-The program also generates 4,096 characters using texts that increase in 
-size from 496,768 characters to 4,967,680 characters (10 times the number).  
+The program also generates 
+4,096 characters using texts that increase in 
+size from 496,768 characters 
+to 4,967,680 characters (10 times the number).  
+
 Do you the timings support the O(NT) analysis for BaseMarkov?
 
 
 
-(2) Determine (from running Benchmark.java) how long it takes for 
-EfficientMarkov to generate 2,000, 4,000, 8,000, 16,000, and 32,000 
-random characters using the default file and an order 5 Markov Model. 
-Include these timings in your report. 
-The program also generates 4,096 characters using texts that increase in 
-size from 496,768 characters to 4,967,680 characters (10 times the number).  
-Do you the timings support the O(N+T) analysis for EfficientMarkov?
 
+
+time	source	#chars
+0.182	496768	2000
+0.360	496768	4000
+0.942	496768	8000
+1.664	496768	16000
+3.426	496768	32000
+
+0.372	496768	4096
+0.707	993536	4096
+1.163	1490304	4096
+1.688	1987072	4096
+2.432	2483840	4096
+2.395	2980608	4096
+2.708	3477376	4096
+3.538	3974144	4096
+3.875	4470912	4096
+4.045	4967680	4096
+
+These timings do support O(NT) analysis. As the number of characters generated increase,
+the time required to complete the program increases proportionally to the number of 
+characters generated. For example, it takes about twice as long to generate 32000 charcters
+as it does to generate 16000 (half of 32000) characters (3.426 vs 1.664). 
+
+Similarly, for the number of words in the source text, as the number of characters in 
+source increase, so does the the time to generate 4096 characters proportionally. 
+For example, it takes about 10 times as long to generate 4096 characters from 
+a source text of 4967680 characters as it does a source text of 496768 
+(one tenth of 4967680) characters (4.045 vs. 0.372). 
+
+This supports the idea that the time to generate the text varies linearly with the 
+number of characters generated and the number of characters in the source. Therefore,
+the timings in the text support O(NT) analysis. 
+
+
+(2) Determine (from running Benchmark.java) how long it takes for 
+EfficientMarkov to 
+generate 2,000, 4,000, 8,000, 16,000, and 32,000 
+random characters using the default file 
+and an order 5 Markov Model. 
+Include these timings in your report. 
+The program also 
+generates 4,096 characters using texts that increase in 
+size from 496,768 characters to 
+4,967,680 characters (10 times the number).  
+Do you the timings support the O(N+T) analysis 
+for EfficientMarkov?
+
+
+
+time	source	#chars
+0.506	496768	2000
+0.498	496768	4000
+0.215	496768	8000
+0.491	496768	16000
+0.531	496768	32000
+
+0.435	496768	4096
+0.787	993536	4096
+1.049	1490304	4096
+1.973	1987072	4096
+2.307	2483840	4096
+2.791	2980608	4096
+3.650	3477376	4096
+5.009	3974144	4096
+6.118	4470912	4096
+8.667	4967680	4096
+
+These timings do support O(N+T) analysis. As the number of characters generated increase,
+the time required to complete the program reamins relatively the same, with a slight
+increase in time as the number of characters increase for #chars >= 8000. 
+For example, it takes a little bit longer to generate 32000 characters (0.531) than it
+does to generate 16000 characters (0.491). For lower numbers of characters generated, 
+(2000 characters and 4000 characters) the amount of time to generate the characters 
+is slightly greater than it does to create 8000 characters, but this is likely due to 
+the computer just starting the code and likely is not a strong of a reflection as the 
+32000 character vs. 16000 character example. Since the number of characters for those 
+examples is greater, ratio between the number of characters generated and the number
+of characters in the source document is greater, meaning that the analysis for 
+O(N+T) can be seen more clearly. 
+
+Similarly, for the number of words in the source text, as the number of characters in 
+source increase, so does the the time to generate 4096 characters. This result is not
+proportional as in the last, the time increase is slightly less than the proportion
+of increase in number of characters in source. 
+For example, it takes about 1.33 times as long to generate 4096 characters from 
+a source text of 1490304 characters as it does a source text of 993536 
+(about two-thirds of 1490304) characters (1.049 vs. 0.787). This supports O(N+T) analysis
+since as T increases, N+T increases by slightly less than N. 
+
+Overall, O(N+T) analysis is well supported since the time reqcuired to generate a series
+of characters increases as the number of characters generated increases and as the number of 
+characters in the source increases. However, the amount of time required to generate those
+characrers does not increase directly, the time increases as N+T does, reflected in 
+the tests and explanations above. 
+ 
 (3)The tests in the class Benchmark use an order-5 Markov Model. 
-Run tests that you think are appropriate to determine if the order of the 
-Markov Model has a significant impact on the running time for BaseMarkov. 
+Run tests that you think 
+are appropriate to determine if the order of the 
+Markov Model has a significant impact on 
+the running time for BaseMarkov. 
 Explain your reasoning.
+
+For order 2:
+time	source	#chars
+0.619	496768	2000
+1.377	496768	4000
+3.231	496768	8000
+5.101	496768	16000
+9.035	496768	32000
+
+0.995	496768	4096
+2.268	993536	4096
+3.318	1490304	4096
+4.277	1987072	4096
+5.078	2483840	4096
+6.134	2980608	4096
+7.573	3477376	4096
+9.047	3974144	4096
+13.918	4470912	4096
+18.616	4967680	4096
+
+For order 3: 
+time	source	#chars
+0.444	496768	2000
+0.626	496768	4000
+1.166	496768	8000
+2.552	496768	16000
+4.536	496768	32000
+
+0.462	496768	4096
+1.411	993536	4096
+1.705	1490304	4096
+1.942	1987072	4096
+2.636	2483840	4096
+3.400	2980608	4096
+4.531	3477376	4096
+4.700	3974144	4096
+5.399	4470912	4096
+6.215	4967680	4096
+
+For order 4:
+time	source	#chars
+0.263	496768	2000
+0.415	496768	4000
+0.999	496768	8000
+1.581	496768	16000
+3.823	496768	32000
+
+0.517	496768	4096
+0.820	993536	4096
+1.602	1490304	4096
+1.575	1987072	4096
+2.334	2483840	4096
+2.673	2980608	4096
+3.132	3477376	4096
+3.679	3974144	4096
+4.442	4470912	4096
+5.574	4967680	4096
+
+The order of the Markov model does make a signficant difference in the amount of time
+it takes to generate a random number of characters. It takes much more time to generate
+random characters with a lower order Markov. For example, it takes 5.574 seconds
+to generate 4096 characters from a 4967680 character source for an order 4 Markov,
+while it takes 18.616 seconds to generate 4096 characters from a 4967680 character 
+source for an order 2 Markov. This is due to the fact that with a smaller order Markov,
+more substrings must be created from the base text in both EfficientMarkov and BaseMarkov
+to execute the code, greatly increasing the amount of time required to run the code for
+lower order Markov models. 
+time 
